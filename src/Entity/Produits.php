@@ -14,19 +14,33 @@ class Produits
     #[ORM\Column]
     private ?int $id = null;
 
-//    #[ORM\Column]
-//    private ?int $ID = null;
-
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le nom du produit est obligatoire.")] 
+    #[Assert\Length(
+        max: 255,
+        maxMessage: "Le nom du produit ne peut pas dépasser {{ limit }} caractères."
+    )]
     private ?string $Nom = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: "La description est obligatoire.")]
+    #[Assert\Length(
+        max: 2000,
+        maxMessage: "La description ne peut pas dépasser {{ limit }} caractères."
+    )]
     private ?string $Description = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Le prix est obligatoire.")]
+    #[Assert\Positive(message: "Le prix doit être un nombre positif.")]
     private ?float $Prix = null;
 
     #[ORM\Column]
+    #[Assert\NotNull(message: "La date de création est obligatoire.")]
+    #[Assert\Type(
+        type: \DateTimeImmutable::class,
+        message: "La date doit être une instance de DateTimeImmutable."
+    )]
     private ?\DateTimeImmutable $DateCreation = null;
 
     public function getId(): ?int

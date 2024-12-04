@@ -1,4 +1,60 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+{# Affiche les erreurs globales du formulaire (si le formulaire est invalide globalement) #}
+{% if form.vars.errors is not empty %}
+    <div class="alert alert-danger">
+        {{ form_errors(form) }}
+    </div>
+{% endif %}
+
+{# Itère sur chaque champ pour afficher ses widgets et ses erreurs #}
+<div>
+    <label for="{{ form.Nom.vars.id }}">Nom :</label>
+    {{ form_widget(form.Nom) }}
+    {% if form.Nom.vars.errors is not empty %}
+        <ul>
+            {% for error in form.Nom.vars.errors %}
+                <li>{{ error.message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+
+<div>
+    <label for="{{ form.Description.vars.id }}">Description :</label>
+    {{ form_widget(form.Description) }}
+    {% if form.Description.vars.errors is not empty %}
+        <ul>
+            {% for error in form.Description.vars.errors %}
+                <li>{{ error.message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+
+<div>
+    <label for="{{ form.Prix.vars.id }}">Prix :</label>
+    {{ form_widget(form.Prix) }}
+    {% if form.Prix.vars.errors is not empty %}
+        <ul>
+            {% for error in form.Prix.vars.errors %}
+                <li>{{ error.message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+
+<div>
+    <label for="{{ form.DateCreation.vars.id }}">Date de création :</label>
+    {{ form_widget(form.DateCreation) }}
+    {% if form.DateCreation.vars.errors is not empty %}
+        <ul>
+            {% for error in form.DateCreation.vars.errors %}
+                <li>{{ error.message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+
+<button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
